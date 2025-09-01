@@ -1,0 +1,98 @@
+# record_apps.py
+import json
+
+def save_data(filename, data):
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=2)
+
+def load_data(filename):
+    try:
+        with open(filename, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+def contacts_app():
+    filename = "contacts.json"
+    contacts = load_data(filename)
+
+    while True:
+        print("\nContacts App")
+        print("1. Add contact")
+        print("2. List contacts")
+        print("3. Quit")
+        choice = input("Choose: ")
+
+        if choice == "1":
+            name = input("Name: ")
+            phone = input("Phone: ")
+            contacts.append({"name": name, "phone": phone})
+            save_data(filename, contacts)
+        elif choice == "2":
+            for c in contacts:
+                print(f"{c['name']} - {c['phone']}")
+        elif choice == "3":
+            break
+
+def tasks_app():
+    filename = "tasks.json"
+    tasks = load_data(filename)
+
+    while True:
+        print("\nTasks App")
+        print("1. Add task")
+        print("2. List tasks")
+        print("3. Quit")
+        choice = input("Choose: ")
+
+        if choice == "1":
+            task = input("Task: ")
+            tasks.append(task)
+            save_data(filename, tasks)
+        elif choice == "2":
+            for i, t in enumerate(tasks, 1):
+                print(f"{i}. {t}")
+        elif choice == "3":
+            break
+
+def expenses_app():
+    filename = "expenses.json"
+    expenses = load_data(filename)
+
+    while True:
+        print("\nExpenses App")
+        print("1. Add expense")
+        print("2. List expenses")
+        print("3. Quit")
+        choice = input("Choose: ")
+
+        if choice == "1":
+            item = input("Item: ")
+            cost = float(input("Cost: "))
+            expenses.append({"item": item, "cost": cost})
+            save_data(filename, expenses)
+        elif choice == "2":
+            total = sum(e["cost"] for e in expenses)
+            for e in expenses:
+                print(f"{e['item']} - {e['cost']}")
+            print(f"Total: {total}")
+        elif choice == "3":
+            break
+
+if __name__ == "__main__":
+    while True:
+        print("\nMain Menu")
+        print("1. Contacts App")
+        print("2. Tasks App")
+        print("3. Expenses App")
+        print("4. Quit")
+        choice = input("Choose app: ")
+
+        if choice == "1":
+            contacts_app()
+        elif choice == "2":
+            tasks_app()
+        elif choice == "3":
+            expenses_app()
+        elif choice == "4":
+            break
