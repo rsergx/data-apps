@@ -1,0 +1,45 @@
+# record_apps.py
+
+import json
+
+def contacts_app():
+    contacts = []
+    while True:
+        name = input("Name (or 'q' to quit): ")
+        if name == "q":
+            break
+        phone = input("Phone: ")
+        contacts.append({"name": name, "phone": phone})
+    print("Contacts saved:", contacts)
+
+def tasks_app():
+    tasks = []
+    while True:
+        task = input("Task (or 'q' to quit): ")
+        if task == "q":
+            break
+        tasks.append(task)
+    print("Tasks saved:", tasks)
+
+def expenses_app():
+    expenses = []
+    while True:
+        item = input("Expense (or 'q' to quit): ")
+        if item == "q":
+            break
+        cost = float(input("Cost: "))
+        expenses.append({"item": item, "cost": cost})
+    print("Expenses saved:", expenses)
+
+if __name__ == "__main__":
+    print("Choose app:")
+    print("1. Contacts")
+    print("2. Tasks")
+    print("3. Expenses")
+    choice = input("Enter 1/2/3: ")
+    if choice == "1":
+        contacts_app()
+    elif choice == "2":
+        tasks_app()
+    elif choice == "3":
+        expenses_app()
